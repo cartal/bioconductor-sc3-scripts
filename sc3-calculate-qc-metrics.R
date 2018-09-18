@@ -3,7 +3,7 @@
 # Carlos Talavera-López - 2018
 
 # Load required packages
-packages <- c("tidyverse", "SC3", "SingleCellExperiment", "scater", "workflowscriptscommon", "optparse")
+packages <- c("tidyverse", "SingleCellExperiment", "scater", "workflowscriptscommon", "optparse")
 suppressPackageStartupMessages(lapply(packages, library, character.only = TRUE))
 
 # parse options

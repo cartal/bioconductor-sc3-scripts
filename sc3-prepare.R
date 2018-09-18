@@ -16,8 +16,8 @@ option_list = list(
   make_option(
     c("-c", "--counts"),
     action = "store",
-    default = NA,
-    type = 'character',
+    default = 'counts,
+    type = 'characters',
     help = "A matrix of expression data with rows corresponding to genes and columns corresponding to cells."
   ),
   make_option(
