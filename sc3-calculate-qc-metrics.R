@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript 
-# Script to compute QC metrics prior to clustering and DEA with SC3
+# Script to compute QC metrics prior to clustering and DEA with SC3. This also output tables for QC analyses. 
 # Carlos Talavera-López - 2018
 
 # Load required packages
@@ -56,6 +56,13 @@ option_list = list(
     default = NA,
     type = 'character',
     help = "file name in which to store serialized R object of type 'SingleCellExperiment'."
+  ),
+  make_option(
+    c("-m", "--metric"),
+    action = "store",
+    default = "both",
+    type = 'character',
+    help = 'Metric name.'
   )
 )
 
@@ -104,6 +111,9 @@ SingleCellExperiment <- readRDS(opt$input_object_file)
 
 # calculate CPMs from raw count matrix
 SingleCellExperiment  <- calculateQCMetrics(object = SingleCellExperiment, exprs_values = opt$exprs_values, feature_controls = feature_controls, cell_controls = cell_controls, nmads = opt$nmads, pct_feature_controls_threshold = opt$pct_feature_controls_threshold)
+
+# Subset the metrics table and write to file
+wsc_write_vector(structure(colData(SingleCellExperiment)[, opt$metric], names = rownames(colData(SingleCellExperiment))), filename = opt$output_file)
 
 # Output to a serialized R object
 saveRDS(SingleCellExperiment, file = opt$output_object_file)
